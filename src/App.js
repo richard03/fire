@@ -1,6 +1,9 @@
 import React from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import FormGroup from './components/FormGroup';
+import Select from './components/Select';
+import Button from './components/Button';
 import './App.css';
 
 
@@ -79,38 +82,42 @@ const SearchScreen = ({ onSubmit }) => {
     onSubmit(formData);
   };
 
+  const researchOptions = [
+    { value: 'interview', label: 'Hloubkový rozhovor' },
+    { value: 'test', label: 'Uživatelský test' }
+  ];
+
+  const interviewOptions = [
+    { value: 'respondent', label: 'Podle možností respondenta' },
+    { value: 'onsite', label: 'On-site' },
+    { value: 'online', label: 'Online' }
+  ];
+
   return (
     <form onSubmit={handleSubmit} className="search-form">
-      <div className="form-group">
-        <label htmlFor="researchType">Typ výzkumu:</label>
-        <select
+      <FormGroup label="Typ výzkumu:" id="researchType">
+        <Select
           id="researchType"
           value={formData.researchType}
           onChange={(e) => setFormData({ ...formData, researchType: e.target.value })}
+          options={researchOptions}
           required
-        >
-          <option value="">Vyberte typ výzkumu</option>
-          <option value="interview">Hloubkový rozhovor</option>
-          <option value="test">Uživatelský test</option>
-        </select>
-      </div>
+        />
+      </FormGroup>
 
-      <div className="form-group">
-        <label htmlFor="interviewType">Způsob rozhovoru:</label>
-        <select
+      <FormGroup label="Způsob rozhovoru:" id="interviewType">
+        <Select
           id="interviewType"
           value={formData.interviewType}
           onChange={(e) => setFormData({ ...formData, interviewType: e.target.value })}
+          options={interviewOptions}
           required
-        >
-          <option value="">Vyberte způsob rozhovoru</option>
-          <option value="respondent">Podle možností respondenta</option>
-          <option value="onsite">On-site</option>
-          <option value="online">Online</option>
-        </select>
-      </div>
+        />
+      </FormGroup>
 
-      <button type="submit" className="submit-button">Odeslat</button>
+      <Button type="submit" variant="primary">
+        Odeslat
+      </Button>
     </form>
   );
 };
