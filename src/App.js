@@ -65,13 +65,104 @@ const Header = () => {
 };
 
 /**
+ * Komponenta pro vyhledávací formulář
+ * @returns {JSX.Element} Vyhledávací formulář
+ */
+const SearchScreen = ({ onSubmit }) => {
+  const [formData, setFormData] = React.useState({
+    researchType: '',
+    interviewType: ''
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(formData);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="search-form">
+      <div className="form-group">
+        <label htmlFor="researchType">Typ výzkumu:</label>
+        <select
+          id="researchType"
+          value={formData.researchType}
+          onChange={(e) => setFormData({ ...formData, researchType: e.target.value })}
+          required
+        >
+          <option value="">Vyberte typ výzkumu</option>
+          <option value="interview">Hloubkový rozhovor</option>
+          <option value="test">Uživatelský test</option>
+        </select>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="interviewType">Způsob rozhovoru:</label>
+        <select
+          id="interviewType"
+          value={formData.interviewType}
+          onChange={(e) => setFormData({ ...formData, interviewType: e.target.value })}
+          required
+        >
+          <option value="">Vyberte způsob rozhovoru</option>
+          <option value="respondent">Podle možností respondenta</option>
+          <option value="onsite">On-site</option>
+          <option value="online">Online</option>
+        </select>
+      </div>
+
+      <button type="submit" className="submit-button">Odeslat</button>
+    </form>
+  );
+};
+
+/**
+ * Komponenta pro zobrazení výsledků
+ * @param {Object} props - Vlastnosti komponenty
+ * @param {Object} props.searchData - Data z vyhledávacího formuláře
+ * @param {Function} props.onBack - Funkce pro návrat na vyhledávání
+ * @returns {JSX.Element} Komponenta s výsledky
+ */
+const ResultsScreen = ({ searchData, onBack }) => {
+  return (
+    <div className="results-screen">
+      <h2>Výsledky vyhledávání</h2>
+      <div className="results-content">
+        <p>Typ výzkumu: {searchData.researchType === 'interview' ? 'Hloubkový rozhovor' : 'Uživatelský test'}</p>
+        <p>Způsob rozhovoru: {
+          searchData.interviewType === 'respondent' ? 'Podle možností respondenta' :
+          searchData.interviewType === 'onsite' ? 'On-site' : 'Online'
+        }</p>
+      </div>
+      <button onClick={onBack} className="back-button">Zpět na vyhledávání</button>
+    </div>
+  );
+};
+
+/**
  * Stránka přihlášeného uživatele
  * @returns {JSX.Element} Hlavní obsah aplikace
  */
 const MainContent = () => {
+  const [showResults, setShowResults] = React.useState(false);
+  const [searchData, setSearchData] = React.useState(null);
+
+  const handleSearch = (data) => {
+    setSearchData(data);
+    setShowResults(true);
+  };
+
+  const handleBack = () => {
+    setShowResults(false);
+    setSearchData(null);
+  };
+
   return (
-    <div>
-      <h1>Vítejte v React aplikaci</h1>
+    <div className="main-content">
+      {showResults ? (
+        <ResultsScreen searchData={searchData} onBack={handleBack} />
+      ) : (
+        <SearchScreen onSubmit={handleSearch} />
+      )}
     </div>
   );
 };
