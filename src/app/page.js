@@ -9,6 +9,7 @@
 
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
+import Title from '@/components/Title';
 
 export default function HomePage() {
   // Získání informací o aktuálním stavu přihlášení
@@ -28,9 +29,7 @@ export default function HomePage() {
     return (
       <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
         <div className="container mx-auto px-4 py-16">
-          <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
-            Vítejte v Next.js aplikaci
-          </h1>
+          <Title text="FiRe: NextJS application" />
           <p className="text-xl text-center text-gray-600 mb-8">
             Pro pokračování se prosím přihlaste
           </p>
