@@ -29,7 +29,7 @@ export default function Button({
       onClick={onClick}
       className={`
         font-semibold py-2 px-6 rounded-lg transition-colors border
-        flex items-center justify-center gap-2
+        flex items-center justify-center gap-2 cursor-pointer
         ${variantStyles[variant]}
         ${className}
       `}
