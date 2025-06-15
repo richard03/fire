@@ -1,55 +1,57 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 
 /**
- * Context pro správu autentizace uživatele
+ * Kontext pro správu autentizace
  */
-const AuthContext = createContext(null);
+const AuthContext = createContext();
 
 /**
  * Provider komponenta pro AuthContext
  * @param {Object} props - Vlastnosti komponenty
  * @param {React.ReactNode} props.children - Dětské komponenty
+ * @returns {JSX.Element} Provider komponenta
  */
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        // Načtení uživatele z localStorage při startu aplikace
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
+  useEffect(() => {
+    // Načtení uživatele z localStorage při startu
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
 
-    /**
-     * Přihlášení uživatele
-     * @param {Object} credential - Google OAuth credential
-     */
-    const login = (credential) => {
-        const decoded = jwtDecode(credential);
-        const userData = {
-            email: decoded.email,
-            name: decoded.name,
-            picture: decoded.picture
-        };
-        setUser(userData);
-        localStorage.setItem('user', JSON.stringify(userData));
+  /**
+   * Zpracování úspěšného přihlášení
+   * @param {Object} credentialResponse - Odpověď z Google OAuth
+   */
+  const handleLoginSuccess = (credentialResponse) => {
+    const decoded = jwtDecode(credentialResponse.credential);
+    const userData = {
+      name: decoded.name,
+      email: decoded.email,
+      picture: decoded.picture,
     };
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
 
-    /**
-     * Odhlášení uživatele
-     */
-    const logout = () => {
-        setUser(null);
-        localStorage.removeItem('user');
-    };
+  /**
+   * Odhlášení uživatele
+   */
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+  };
 
-    return (
-        <AuthContext.Provider value={{ user, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
+  return (
+    <AuthContext.Provider value={{ user, handleLoginSuccess, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 /**
@@ -57,9 +59,9 @@ export const AuthProvider = ({ children }) => {
  * @returns {Object} Autentizační kontext
  */
 export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
-    return context;
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 }; 
