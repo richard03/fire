@@ -81,10 +81,8 @@ export default function HomePage() {
               />
             )}
             <div>
-              <h2 className="text-2xl font-bold text-gray-800">
-                Vítejte, {session.user?.name}
-              </h2>
-              <p className="text-gray-600">{session.user?.email}</p>
+              <Title level="h2" text={`Vítejte, ${session.user?.name}`} />
+              <Text text={session.user?.email} />
             </div>
           </div>
           {/* Tlačítko pro odhlášení */}
