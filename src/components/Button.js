@@ -13,22 +13,22 @@
 export default function Button({ 
   text, 
   onClick, 
-  variant = 'primary',
+  variant = 'secondary',
   icon,
   className = '' 
 }) {
   // Definice stylů pro různé varianty tlačítka
   const variantStyles = {
-    primary: 'bg-blue-500 hover:bg-blue-600 text-white',
-    secondary: 'bg-gray-500 hover:bg-gray-600 text-white',
-    danger: 'bg-red-500 hover:bg-red-600 text-white'
+    primary: 'primary hover:bg-primary-dark',
+    secondary: 'secondary hover:bg-secondary-dark',
+    tertiary: 'tertiary hover:bg-tertiary-dark'
   };
 
   return (
     <button
       onClick={onClick}
       className={`
-        font-semibold py-2 px-6 rounded-lg transition-colors
+        font-semibold py-2 px-6 rounded-lg transition-colors border
         flex items-center justify-center gap-2
         ${variantStyles[variant]}
         ${className}

@@ -13,6 +13,7 @@ import Title from '@/components/Title';
 import Text from '@/components/Text';
 import Button from '@/components/Button';
 import ButtonSet from '@/components/ButtonSet';
+import Card from '@/components/Card';
 
 // Markdown text jako konstantní proměnná
 const welcomeText = `Pro pokračování se prosím **přihlaste** pomocí svého Google účtu.
@@ -38,27 +39,30 @@ export default function HomePage() {
   // Zobrazení přihlašovací obrazovky pro nepřihlášené uživatele
   if (!session) {
     return (
-      <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <main>
         <div className="container mx-auto px-4 py-16">
-          <Title text="FiRe: NextJS application" />
-          <Text 
-            content={welcomeText}
-            className="mb-8"
-          />
-          <ButtonSet>
-            <Button
-              text="Přihlásit se přes Google"
-              onClick={() => signIn('google')}
-              icon={
-                <Image
-                  src="/google.svg"
-                  alt="Google logo"
-                  width={20}
-                  height={20}
-                />
-              }
+          <Card>
+            <Title text="FiRe: NextJS application" />
+            <Text 
+              content={welcomeText}
+              className="mb-8"
             />
-          </ButtonSet>
+            <ButtonSet>
+              <Button
+                text="Přihlásit se přes Google"
+                variant="secondary"
+                onClick={() => signIn('google')}
+                icon={
+                  <Image
+                    src="/google.svg"
+                    alt="Google logo"
+                    width={20}
+                    height={20}
+                  />
+                }
+              />
+            </ButtonSet>
+          </Card>
         </div>
       </main>
     );
@@ -66,9 +70,9 @@ export default function HomePage() {
 
   // Zobrazení přihlášené obrazovky s informacemi o uživateli
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <main>
       <div className="container mx-auto px-4 py-16">
-        <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg p-8">
+        <Card>
           {/* Profilová sekce s fotkou a informacemi o uživateli */}
           <div className="flex items-center gap-4 mb-6">
             {session.user?.image && (
@@ -82,17 +86,19 @@ export default function HomePage() {
             )}
             <div>
               <Title level="h2" text={`Vítejte, ${session.user?.name}`} />
-              <Text text={session.user?.email} />
+              <Text content={session.user?.email} />
             </div>
           </div>
-          {/* Tlačítko pro odhlášení */}
-          <Button
-            text="Odhlásit se"
-            onClick={() => signOut()}
-            variant="danger"
-            className="w-full"
-          />
-        </div>
+          <ButtonSet>
+            {/* Tlačítko pro odhlášení */}
+            <Button
+              text="Odhlásit se"
+              onClick={() => signOut()}
+              variant="tertiary"
+            />
+          </ButtonSet>
+          
+        </Card>
       </div>
     </main>
   );

@@ -15,7 +15,7 @@ import remarkGfm from 'remark-gfm';
 
 export default function Text({ content, className = '' }) {
   return (
-    <div className={`prose prose-blue max-w-none text-gray-800 ${className}`}>
+    <div className={`prose prose-blue max-w-none text-foreground-800 ${className}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{

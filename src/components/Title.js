@@ -12,8 +12,8 @@
 export default function Title({ text, level = 'h1', className = '' }) {
   // Definice stylů pro různé úrovně nadpisů
   const levelStyles = {
-    h1: 'text-4xl font-bold text-center text-gray-800 mb-8',
-    h2: 'text-2xl font-bold text-gray-800 mb-6'
+    h1: 'text-4xl font-bold text-center text-foreground-800 mb-8',
+    h2: 'text-2xl font-bold text-foreground-800 mb-6'
   };
 
   // Výběr správného HTML elementu podle úrovně

@@ -1,9 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #eee;
+  --foreground: #333;
+
+  --fg-primary: #eee;
+  --bg-primary: #C80D5D;
+
+  --fg-secondary: #333;
+  --bg-secondary: #8EB93D;
+
+  --fg-tertiary: #333;
+  --bg-tertiary: #eee;
+
+  --bg-surface-1: #eee;
+  --border-surface-1: #ccc;
+  --bg-surface-2: #ddd;
+  --border-surface-2: #ccc;
+  --bg-surface-3: #ccc;
+  --border-surface-3: #bbb;
+  --bg-surface-4: #bbb;
+  --border-surface-4: #777;
+
+  --fg-error: #eee;
+  --bg-error: #800;
+
+  --fg-success: #333;
+  --bg-success: #8eb93d;
+
+  --fg-warning: #333;
+  --bg-warning: #d91;
+
+  --fg-info: #333;
+  --bg-info: #ccf;
+  
 }
+
+
 
 @theme inline {
   --color-background: var(--background);
@@ -14,13 +47,79 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #333;
+    --foreground: #eee;
+
+    
+  --fg-primary: #eee;
+  --bg-primary: #C80D5D;
+
+  --fg-secondary: #333;
+  --bg-secondary: #8EB93D;
+
+  --fg-tertiary: #eee;
+  --bg-tertiary: #333;
+
+  --bg-surface-1: #333;
+  --border-surface-1: #555;
+  --bg-surface-2: #444;
+  --border-surface-2: #555;
+  --bg-surface-3: #666;
+  --border-surface-3: #777;
+  --bg-surface-4: #888;
+  --border-surface-4: #666;
+
+  --fg-error: #eee;
+  --bg-error: #800;
+
+  --fg-success: #333;
+  --bg-success: #8eb93d;
+
+  --fg-warning: #333;
+  --bg-warning: #d91;
+
+  --fg-info: #333;
+  --bg-info: #ccf;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
+
+.primary {
+  background-color: var(--bg-primary);
+  border-color: var(--fg-primary);
+  color: var(--fg-primary);
+}
+.secondary {
+  background-color: var(--bg-secondary);
+  border-color: var(--fg-secondary);
+  color: var(--fg-secondary);
+}
+.tertiary {
+  background-color: var(--bg-tertiary);
+  border-color: var(--fg-tertiary);
+  color: var(--fg-tertiary);
+}
+
+.surface-1 {
+  background-color: var(--bg-surface-1);
+  border-color: var(--border-surface-1);
+}
+.surface-2 {
+  background-color: var(--bg-surface-2);
+  border-color: var(--border-surface-2);
+}
+.surface-3 {
+  background-color: var(--bg-surface-3);
+  border-color: var(--border-surface-3);
+}
+.surface-4 {
+  background-color: var(--bg-surface-4);
+  border-color: var(--border-surface-4);
+}
+
+
+
