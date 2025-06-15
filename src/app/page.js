@@ -11,9 +11,11 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Title from '@/components/Title';
 import Text from '@/components/Text';
+import Button from '@/components/Button';
 
 // Markdown text jako konstantní proměnná
 const welcomeText = `Pro pokračování se prosím **přihlaste** pomocí svého Google účtu.
+
 ### Co získáte přihlášením?
 - Přístup k vašemu profilu
 - Možnost ukládat data
@@ -43,18 +45,18 @@ export default function HomePage() {
             className="mb-8"
           />
           <div className="flex justify-center">
-            <button
+            <Button
+              text="Přihlásit se přes Google"
               onClick={() => signIn('google')}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors flex items-center gap-2"
-            >
-              <Image
-                src="/google.svg"
-                alt="Google logo"
-                width={20}
-                height={20}
-              />
-              Přihlásit se přes Google
-            </button>
+              icon={
+                <Image
+                  src="/google.svg"
+                  alt="Google logo"
+                  width={20}
+                  height={20}
+                />
+              }
+            />
           </div>
         </div>
       </main>
@@ -85,12 +87,12 @@ export default function HomePage() {
             </div>
           </div>
           {/* Tlačítko pro odhlášení */}
-          <button
+          <Button
+            text="Odhlásit se"
             onClick={() => signOut()}
-            className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
-          >
-            Odhlásit se
-          </button>
+            variant="danger"
+            className="w-full"
+          />
         </div>
       </div>
     </main>
