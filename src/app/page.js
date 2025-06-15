@@ -12,6 +12,7 @@ import Image from 'next/image';
 import Title from '@/components/Title';
 import Text from '@/components/Text';
 import Button from '@/components/Button';
+import ButtonSet from '@/components/ButtonSet';
 
 // Markdown text jako konstantní proměnná
 const welcomeText = `Pro pokračování se prosím **přihlaste** pomocí svého Google účtu.
@@ -44,7 +45,7 @@ export default function HomePage() {
             content={welcomeText}
             className="mb-8"
           />
-          <div className="flex justify-center">
+          <ButtonSet>
             <Button
               text="Přihlásit se přes Google"
               onClick={() => signIn('google')}
@@ -57,7 +58,7 @@ export default function HomePage() {
                 />
               }
             />
-          </div>
+          </ButtonSet>
         </div>
       </main>
     );
