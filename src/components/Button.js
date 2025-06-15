@@ -1,34 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 /**
- * Komponenta pro tlačítko
- * @param {Object} props - Vlastnosti komponenty
- * @param {string} props.type - Typ tlačítka (submit, button)
- * @param {string} props.variant - Varianta tlačítka (primary, secondary)
- * @param {Function} props.onClick - Callback při kliknutí
- * @param {React.ReactNode} props.children - Obsah tlačítka
- * @returns {JSX.Element} Tlačítko
+ * Button Component
+ * Reusable button component with customizable styles
+ * @param {Object} props - Component props
+ * @param {string} props.text - Button text
+ * @param {Function} props.onClick - Click handler function
+ * @param {string} props.className - Additional CSS classes
+ * @returns {JSX.Element} Rendered button
  */
-const Button = ({ type = 'button', variant = 'primary', onClick, children }) => {
-  const buttonClass = `button button-${variant}`;
-  
+export default function Button({ text, onClick, className = '' }) {
   return (
     <button
-      type={type}
-      className={buttonClass}
       onClick={onClick}
+      className={`bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors ${className}`}
     >
-      {children}
+      {text}
     </button>
   );
-};
-
-Button.propTypes = {
-  type: PropTypes.oneOf(['button', 'submit']),
-  variant: PropTypes.oneOf(['primary', 'secondary']),
-  onClick: PropTypes.func,
-  children: PropTypes.node.isRequired
-};
-
-export default Button; 
+} 
