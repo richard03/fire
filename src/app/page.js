@@ -1,7 +1,9 @@
 /**
  * HomePage Component
- * Main landing page with authentication state handling
- * @returns {JSX.Element} Rendered home page
+ * Hlavní stránka aplikace s implementací autentizace
+ * Zobrazuje různé stavy podle toho, zda je uživatel přihlášený nebo ne
+ * 
+ * @returns {JSX.Element} Vykreslená hlavní stránka
  */
 'use client';
 
@@ -9,8 +11,10 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 
 export default function HomePage() {
+  // Získání informací o aktuálním stavu přihlášení
   const { data: session, status } = useSession();
 
+  // Zobrazení načítacího stavu během ověřování
   if (status === 'loading') {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -19,6 +23,7 @@ export default function HomePage() {
     );
   }
 
+  // Zobrazení přihlašovací obrazovky pro nepřihlášené uživatele
   if (!session) {
     return (
       <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -48,10 +53,12 @@ export default function HomePage() {
     );
   }
 
+  // Zobrazení přihlášené obrazovky s informacemi o uživateli
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg p-8">
+          {/* Profilová sekce s fotkou a informacemi o uživateli */}
           <div className="flex items-center gap-4 mb-6">
             {session.user?.image && (
               <Image
@@ -69,6 +76,7 @@ export default function HomePage() {
               <p className="text-gray-600">{session.user?.email}</p>
             </div>
           </div>
+          {/* Tlačítko pro odhlášení */}
           <button
             onClick={() => signOut()}
             className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
