@@ -10,6 +10,14 @@
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Title from '@/components/Title';
+import Text from '@/components/Text';
+
+// Markdown text jako konstantní proměnná
+const welcomeText = `Pro pokračování se prosím **přihlaste** pomocí svého Google účtu.
+### Co získáte přihlášením?
+- Přístup k vašemu profilu
+- Možnost ukládat data
+- Synchronizaci napříč zařízeními`;
 
 export default function HomePage() {
   // Získání informací o aktuálním stavu přihlášení
@@ -30,9 +38,10 @@ export default function HomePage() {
       <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
         <div className="container mx-auto px-4 py-16">
           <Title text="FiRe: NextJS application" />
-          <p className="text-xl text-center text-gray-600 mb-8">
-            Pro pokračování se prosím přihlaste
-          </p>
+          <Text 
+            content={welcomeText}
+            className="mb-8"
+          />
           <div className="flex justify-center">
             <button
               onClick={() => signIn('google')}
